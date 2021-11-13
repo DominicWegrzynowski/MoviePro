@@ -1,0 +1,15 @@
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace MoviePro.Services.Interfaces
+{
+    public interface IImageService
+    {
+        Task<byte[]> EncodeImageAsync(IFormFile poster);
+        Task<byte[]> EndodeImageURLAsync(string imageURL);
+        string DecodeImage(byte[] poster, string contentType);
+    }
+}
