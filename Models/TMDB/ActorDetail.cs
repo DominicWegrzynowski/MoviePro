@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace MoviePro.Models.TMDB
 {
 
-    public class ActorDetails
+    public class ActorDetail
     {
         public bool adult { get; set; }
         public string[] also_known_as { get; set; }
