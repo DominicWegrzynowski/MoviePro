@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using MoviePro.Data;
 using MoviePro.Models.Settings;
 using MoviePro.Services;
+using MoviePro.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,12 +42,16 @@ namespace MoviePro
             services.AddIdentity<IdentityUser, IdentityRole>()
               .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddHttpClient();
+            
             services.AddControllersWithViews();
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddTransient<SeedService>();
+
+            services.AddHttpClient();
+            services.AddScoped<IRemoteMovieService, TMDBMovieService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
