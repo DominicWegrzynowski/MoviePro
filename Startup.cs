@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MoviePro.Data;
 using MoviePro.Models.Settings;
+using MoviePro.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,12 +35,18 @@ namespace MoviePro
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+              .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddHttpClient();
             services.AddControllersWithViews();
 
-            services.Configure<AppSettings>(Configuration.GetSection("AppSettings")); 
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
+            services.AddTransient<SeedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
