@@ -53,6 +53,7 @@ namespace MoviePro
 
             services.AddHttpClient();
             services.AddScoped<IRemoteMovieService, TMDBMovieService>();
+            services.AddSingleton<IImageService, BasicImageService>();
 
         }
 
