@@ -60,6 +60,12 @@ namespace MoviePro.Controllers
             return RedirectToAction("Import");
         }
 
+        public async Task<IActionResult> Library()
+        {
+            var movies = await _context.Movie.ToListAsync();
+            return View(movies);
+        }
+
         private async Task AddToMovieCollection(int movieId, string collectionName)
         {
             var collection = await _context.Collection.FirstOrDefaultAsync(c => c.Name == collectionName);
