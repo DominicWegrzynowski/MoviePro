@@ -55,7 +55,7 @@ namespace MoviePro.Controllers
             _context.MovieCollection.RemoveRange(oldRecords);
             await _context.SaveChangesAsync();
 
-            if(IdsInCollection is not null)
+            if (IdsInCollection is not null)
             {
                 int index = 1;
                 IdsInCollection.ForEach(movieId => 
