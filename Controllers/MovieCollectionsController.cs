@@ -35,16 +35,42 @@ namespace MoviePro.Controllers
                                                      .Select(m => m.MovieId)
                                                      .ToListAsync();
 
-            var movieIdsNotInCollection = allMovieIds.Except(movieIdsInCollection);
+            var movieIdsNotinCollection = allMovieIds.Except(movieIdsInCollection);
 
             var moviesInCollection = new List<Movie>();
+
             movieIdsInCollection.ForEach(movieId => moviesInCollection.Add(_context.Movie.Find(movieId)));
+            ViewData["IdsInCollection"] = new MultiSelectList(moviesInCollection, "Id", "Title");
 
-            ViewData["IdsInCollection"] = new MultiSelectList(moviesInCollection, "id", "Title");
-
-            var moviesNotInCollection = await _context.Movie.AsNoTracking().Where(m => movieIdsNotInCollection)
+            var moviesNotInCollection = await _context.Movie.AsNoTracking().Where(m => movieIdsNotinCollection.Contains(m.Id)).ToListAsync();
+            ViewData["IdsNotInCollection"] = new MultiSelectList(moviesNotInCollection, "Id", "Title");
 
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(int id, List<int> IdsInCollection)
+        {
+            var oldRecords = _context.MovieCollection.Where(c => c.CollectionId == id);
+            _context.MovieCollection.RemoveRange(oldRecords);
+            await _context.SaveChangesAsync();
+
+            if(IdsInCollection is not null)
+            {
+                int index = 1;
+                IdsInCollection.ForEach(movieId => 
+                {
+                    _context.Add(new MovieCollection() 
+                    { 
+                        CollectionId = id,
+                        MovieId = movieId,
+                        Order = index++
+                    });
+                });
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index), new { id });
         }
     }
 }
