@@ -66,6 +66,40 @@ namespace MoviePro.Controllers
             var movies = await _context.Movie.ToListAsync();
             return View(movies);
         }
+
+        public async Task<IActionResult> Details(int? id, bool local = false)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Movie movie = new();
+
+            if (local)
+            {
+                //Get the movie data from the db
+                movie = await _context.Movie.Include(m => m.Cast)
+                                            .Include(m => m.Crew)
+                                            .FirstOrDefaultAsync(m => m.Id == id);
+            }
+            else
+            {
+                //Get the movie data from the TMDB API
+                var movieDetail = await _tmdbMovieService.MovieDetailAsync((int)id);
+                movie = await _tmdbMappingService.MapMovieDetailAsync(movieDetail);
+            }
+
+            if(movie is null)
+            {
+                return NotFound();
+            }
+
+            ViewData["Local"] = local;
+
+            return View(movie);
+        }
+
         private async Task AddToMovieCollection(int movieId, string collectionName)
         {
             var collection = await _context.Collection.FirstOrDefaultAsync(c => c.Name == collectionName);
@@ -101,8 +135,6 @@ namespace MoviePro.Controllers
         }
 
         // POST: Temp/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,MovieId,Title,TagLine,Overview,RunTime,ReleaseDate,Rating,VoteAverage,Poster,PosterType,Backdrop,BackdropType,TrailerUrl")] Movie movie, int collectionId)
@@ -142,8 +174,6 @@ namespace MoviePro.Controllers
         }
 
         // POST: Temp/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,MovieId,Title,TagLine,Overview,RunTime,ReleaseDate,Rating,VoteAverage,Poster,PosterType,Backdrop,BackdropType,TrailerUrl")] Movie movie)
