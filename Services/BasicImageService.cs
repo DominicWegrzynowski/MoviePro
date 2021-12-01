@@ -38,7 +38,7 @@ namespace MoviePro.Services
             return ms.ToArray();
         }
 
-        public async Task<byte[]> EndodeImageURLAsync(string imageURL)
+        public async Task<byte[]> EncodeImageURLAsync(string imageURL)
         {
             var client = _httpClient.CreateClient();
             var response = await client.GetAsync(imageURL);

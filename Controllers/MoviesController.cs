@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using MoviePro.Data;
 using MoviePro.Models.Database;
 using MoviePro.Models.Settings;
+using MoviePro.Services;
 using MoviePro.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,13 @@ namespace MoviePro.Controllers
         private readonly IImageService _imageService;
         private readonly IRemoteMovieService _tmdbMovieService;
         private readonly IDataMappingService _tmdbMappingService;
-        public MoviesController(IOptions<AppSettings> appSettings, ApplicationDbContext context, IRemoteMovieService tmdbMovieService)
+        public MoviesController(IOptions<AppSettings> appSettings, ApplicationDbContext context, IRemoteMovieService tmdbMovieService, IImageService imageService, IDataMappingService tmdbMappingService)
         {
             _appSettings = appSettings.Value;
             _context = context;
             _tmdbMovieService = tmdbMovieService;
+            _imageService = imageService;
+            _tmdbMappingService = tmdbMappingService;
         }
 
         [HttpGet]
