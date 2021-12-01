@@ -72,7 +72,6 @@ namespace MoviePro.Services
             { 
                 Name = _appSettings.MovieProSettings.DefaultCollection.Name,
                 Description = _appSettings.MovieProSettings.DefaultCollection.Description
-            
             });
 
             await _dbContext.SaveChangesAsync();

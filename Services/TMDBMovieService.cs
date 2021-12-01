@@ -62,7 +62,7 @@ namespace MoviePro.Services
         {
             //Step 1: Setup a default instance of MovieSearch
 
-            MovieDetail movieDetail = new();
+            MovieDetail movieDetail = new MovieDetail();
 
             //Step 2: Assemble the full request uri string
 
@@ -86,9 +86,9 @@ namespace MoviePro.Services
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
                 var dcjs = new DataContractJsonSerializer(typeof(MovieDetail));
-                movieDetail = dcjs.ReadObject(responseStream) as MovieDetail;
+                using var responseStream = await response.Content.ReadAsStreamAsync();
+                movieDetail = (MovieDetail)dcjs.ReadObject(responseStream);
             }
 
             return movieDetail;
