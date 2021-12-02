@@ -27,7 +27,7 @@
 
 <!--UPCOMING SECTION-->
 
-<section class="px-4">
+<section class="px-4 mb-3">
     <div class="row">
         <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">UPCOMING</span>
     </div>
@@ -65,7 +65,7 @@
 
 <!--NOW PLAYING SECTION-->
 
-<section class="px-4">
+<section class="px-4 mb-3">
     <div class="row">
         <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">NOW PLAYING</span>
     </div>
@@ -76,7 +76,7 @@
                     classText = "active";
                     for (var slide = 0; slide <= 3; slide++)
                     {
-                        <div class="carousel-item" @classText>
+                        <div class="carousel-item @classText">
                             <div class="row">
                                 @foreach (var movie in Model.NowPlaying.results.Skip(slide * 4).Take(4))
                                 {
@@ -103,7 +103,7 @@
 
 <!--POPULAR SECTION-->
 
-<section class="px-4">
+<section class="px-4 mb-3">
     <div class="row">
         <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">POPULAR</span>
     </div>
@@ -114,7 +114,7 @@
                     classText = "active";
                     for (var slide = 0; slide <= 3; slide++)
                     {
-                        <div class="carousel-item" @classText>
+                        <div class="carousel-item @classText">
                             <div class="row">
                                 @foreach (var movie in Model.Popular.results.Skip(slide * 4).Take(4))
                                 {
@@ -141,7 +141,7 @@
 
 <!--TOP RATED SECTION-->
 
-<section class="px-4">
+<section class="px-4 mb-3">
     <div class="row">
         <span class="btn btn-lg btn-block btn-warning font-weight-bolder border-dark">TOP RATED</span>
     </div>
@@ -152,7 +152,7 @@
                     classText = "active";
                     for (var slide = 0; slide <= 3; slide++)
                     {
-                        <div class="carousel-item" @classText>
+                        <div class="carousel-item @classText">
                             <div class="row">
                                 @foreach (var movie in Model.TopRated.results.Skip(slide * 4).Take(4))
                                 {

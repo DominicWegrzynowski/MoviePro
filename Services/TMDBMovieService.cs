@@ -71,7 +71,7 @@ namespace MoviePro.Services
             {
                 { "api_key", _appSettings.MovieProSettings.TmDbApiKey },
                 { "language", _appSettings.TMDBSettings.QueryOptions.Language },
-                { "append_to_request", _appSettings.TMDBSettings.QueryOptions.AppendToResponse }
+                { "append_to_response", _appSettings.TMDBSettings.QueryOptions.AppendToResponse }
             };
 
             var requestUri = QueryHelpers.AddQueryString(query, queryParams);
