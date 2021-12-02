@@ -8,28 +8,74 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <header class="h-100" style="background-image: Url('/img/headerimg.jpg'); width: 100%; height: 400px; background-size:cover;">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark text-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MoviePro</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Library">Library</a>
                         </li>
+
+                        @if (User.Identity.AuthenticationType == "Administrator")
+                        {
+                            <li class="nav-item px-2">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Create">AdminPages</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Pages</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Collections</a>
+                                    <a class="dropdown-item" href="#">Movie Collections</a>
+                                    <a class="dropdown-item dropdown-toggle" href="#">Movies</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Import</a>
+                                        <a class="dropdown-item" href="#">Create</a>
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                        }
+
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
+
+        <div class="container" >
+            <div class="row mt-5 mb-5 h-100 d-flex" ">
+                <form  class="col-8" asp-action="SearchIndex" asp-controller="Movies">
+                    <div class="input-group align-content-center" mt-5>
+
+                        s         
+                        s
+                        <h1 class="text-light justify-content-center">Movie Pro</h1>
+                        s
+                        s
+                        s
+                        <input type="text" name="SearchMovie" class="form-control" placeholder="Search Movies" />
+                        <div class="input-group-append">
+                            <button class="btn btn-primary btn-block" type="submit">Search</button>
+                        </div>
+                        s
+                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        s
+                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+                        s
+                    </div>
+                </form>
+            </div>
+        </div>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

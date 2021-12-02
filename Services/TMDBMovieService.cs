@@ -27,7 +27,7 @@ namespace MoviePro.Services
         {
             //Step 1: Setup a default instance of MovieSearch
 
-            ActorDetail actorDetail = new();
+            ActorDetail actorDetail = new ActorDetail();
 
             //Step 2: Assemble the full request uri string
 
@@ -35,7 +35,7 @@ namespace MoviePro.Services
             var queryParams = new Dictionary<string, string>()
             {
                 { "api_key", _appSettings.MovieProSettings.TmDbApiKey },
-                { "language", _appSettings.TMDBSettings.QueryOptions.Language },
+                { "language", _appSettings.TMDBSettings.QueryOptions.Language }
             };
 
             var requestUri = QueryHelpers.AddQueryString(query, queryParams);
@@ -50,8 +50,8 @@ namespace MoviePro.Services
 
             if (response.IsSuccessStatusCode)
             {
-                using var responseStream = await response.Content.ReadAsStreamAsync();
                 var dcjs = new DataContractJsonSerializer(typeof(ActorDetail));
+                using var responseStream = await response.Content.ReadAsStreamAsync();
                 actorDetail = (ActorDetail)dcjs.ReadObject(responseStream);
             }
 

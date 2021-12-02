@@ -74,7 +74,7 @@
                     </div>
                     <div class="col-md-10">
                         <div class="card-body">
-                            <h5 class="card-title">Name: @actor.Name</h5>
+                            <a asp-action="Details" asp-controller="Actors" asp-route-id="@actor.CastId"><h5 class="card-title">Name: @actor.Name</h5></a>
                             <p class="card-text">Character: @actor.Character</p>
                         </div>
                     </div>
@@ -99,22 +99,27 @@
             <!--Body-->
             <div class="modal-body">
                 <div class="embed-responsive embed-responsive-16by9">
-                    @{ 
+                    @if (Model.TrailerUrl is not null)
+                    {
                         //isolate a piece of data in order to use it as embedded source
                         var key = Model.TrailerUrl.Split("=").Last();
                         var source = $"https://www.youtube.com/embed/{key}";
-                    }
 
-                    <iframe width="560" height="315" src="@source"
-                            title="YouTube video player" frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen>
-                    </iframe>
+
+                        <iframe width="560" height="315" src="@source"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    }
+                    else
+                    {
+                        <h3>Trailer not available.</h3>
+                    }
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
             </div>
         </div>
     </div>
