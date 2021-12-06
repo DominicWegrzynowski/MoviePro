@@ -29,6 +29,7 @@ namespace MoviePro.Controllers
 
         public async Task<IActionResult> Index()
         {
+            ViewData["Title"] = "Movies";
             const int count = 16;
 
             var data = new LandingPageVM()
@@ -46,10 +47,6 @@ namespace MoviePro.Controllers
             return View(data);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

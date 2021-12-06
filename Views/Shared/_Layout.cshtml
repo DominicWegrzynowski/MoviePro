@@ -6,13 +6,22 @@
     <title>@ViewData["Title"] - MoviePro</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <!--Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;800&display=swap" rel="stylesheet">
+
+
 </head>
-<body>
-    <header class="h-100" style="background-image: Url('/img/headerimg.jpg'); width: 100%; height: 400px; background-size:cover;">
+<body d-flex flex-column h-100>
+    <header flex-shrink-0>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark text-light border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-light font-weight-bolder" asp-area="" asp-controller="Home" asp-action="Index">Movie Pro</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -20,14 +29,11 @@
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Library">Library</a>
                         </li>
 
-                        @if (User.Identity.AuthenticationType == "Administrator")
+                        @if (User.IsInRole("Administrator"))
                         {
-                            <li class="nav-item px-2">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Movies" asp-action="Create">AdminPages</a>
-                            </li>
-
+                                   
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Pages</a>
+                                <a class="nav-link text-light dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin Pages</a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="#">Collections</a>
                                     <a class="dropdown-item" href="#">Movie Collections</a>
@@ -47,33 +53,8 @@
                 </div>
             </div>
         </nav>
-
-        <div class="container" >
-            <div class="row mt-5 mb-5 h-100 d-flex" ">
-                <form  class="col-8" asp-action="SearchIndex" asp-controller="Movies">
-                    <div class="input-group align-content-center" mt-5>
-
-                        s         
-                        s
-                        <h1 class="text-light justify-content-center">Movie Pro</h1>
-                        s
-                        s
-                        s
-                        <input type="text" name="SearchMovie" class="form-control" placeholder="Search Movies" />
-                        <div class="input-group-append">
-                            <button class="btn btn-primary btn-block" type="submit">Search</button>
-                        </div>
-                        s
-                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                        s
-                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                        sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                        s
-                    </div>
-                </form>
-            </div>
-        </div>
+        
+        <h1 class="poppins-head">@ViewData["Title"]</h1>
     </header>
 
     <div class="container">
