@@ -63,7 +63,7 @@ namespace MoviePro.Controllers
 
             return RedirectToAction("Import");
         }
-
+        [HttpGet]
         public async Task<IActionResult> Library()
         {
             var movies = await _context.Movie.ToListAsync();

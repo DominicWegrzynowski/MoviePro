@@ -3,86 +3,88 @@
 @inject IImageService _imageService 
 @model Movie 
 
-<div class="row">
-    <div class="col-sm-12 col-md-6">
+<div class="row mt-5 pt-5">
+    <div class="col-sm-12 col-md-4">
         <div class="row">
-            <img src="@_imageService.DecodeImage(Model.Poster, Model.PosterType)" class="w-100" />
-        </div>
-        <div class="row mt-4 mb-4">
-            <button class="btn btn-lg btn-danger font-weight-bold" data-toggle="modal" data-target="#trailer">
+            <div class="col-12">
+                <img src="@_imageService.DecodeImage(Model.Poster, Model.PosterType)" class="w-100 shadow-lg" style="width: 60%;" />
+            </div>
+            <div class="col-12">
+                <button class="btn btn-lg btn-danger font-weight-bold btn-block mt-4 mb-4" data-toggle="modal" data-target="#trailer">
                 WATCH TRAILER
-            </button>
-        </div> 
+                </button>
+            </div>
+        </div>
+        
     </div>
-    <div class="col-sm-12 col-md-6">
+    <div class="col-sm-12 col-md-6 ml-4 pr-3">
+
+        <hr />
+
         <div class="row">
-            <div class="col h5">
-                <span class="font-weight-bold mr-2">TITLE:</span>@Model.Title
+            <div class="col-3">
+                <i class="fas fa-star mt-2"></i>
+                <span class="font-weight-bold">@Model.VoteAverage / 10</span>
+            </div> 
+            <div class="col align-content-start">
+                <h2 class="font-weight-bolder">@Model.Title</h2>
             </div>
         </div>
 
+        <hr />
+         
+        <div class="row mb-3">
+            <div class="col-4">
+                <h6><strong>Released:</strong> @Model.ReleaseDate.ToString("MMM dd, yyyy")</h6> 
+            </div>
+            <div class="col-4">
+                <h6><strong>Runtime:</strong> @Model.RunTime minutes</h6> 
+            </div>
+            <div class="col-4">
+                <h6><strong>RATING:</strong> @Model.Rating</h6> 
+            </div>
+        </div>
 
         <hr />
+
         <div class="row">
-            <div class="col h5">
-                <span class="font-weight-bold mr-2">RELEASED</span>@Model.ReleaseDate.ToString("MMM dd, yyyy")
+            <div class="col-12">
+                <p class=""><strong>@Model.TagLine</strong></p>
+                <p class="" style="line-height: 28px;">@Model.Overview</p>
             </div>
         </div>
-        <hr />
-        <div class="row">
-            <div class="col h5">
-                <span class="font-weight-bold mr-2">RATING</span>@Model.Rating
-            </div>
-        </div>
-        <hr />
-        <div class="row">
-            <div class="col h5">
-                <span class="font-weight-bold mr-2">REVIEWS:</span>@Model.VoteAverage / 10
-            </div>
-        </div>
-        <hr />
-        <div class="row mt-3 mb-2">
+
+        <hr /> 
+
+        <div class="row mb-3">
             <div class="col">
-                <span class="h5 font-weight-bold">OVERVIEW:</span>
+                <span class="h4 font-weight-bolder">STARRING:</span>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <span class="h5 ml-4">@Model.Overview</span>
-            </div>
-        </div>
-
-    </div>
-    
-
-</div>
-<div class="row mb-3">
-    <div class="col">
-        <span class="h3 font-weight-bolder">STARRING:</span>
-    </div>
-</div>
-
-@foreach(var actor in Model.Cast.Take(5))
-{
-    <div class="row">
-        <div class="col">
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-2">
-                        <img src="@actor.ImageUrl" class="img-fluid" style="width: 10rem"/>
-                    </div>
-                    <div class="col-md-10">
-                        <div class="card-body">
-                            <a asp-action="Details" asp-controller="Actors" asp-route-id="@actor.CastId"><h5 class="card-title">Name: @actor.Name</h5></a>
-                            <p class="card-text">Character: @actor.Character</p>
+        @foreach(var actor in Model.Cast.Take(5))
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="card mb-3">
+                        <div class="row no-gutters">
+                            <div class="col-md-2">
+                                <img src="@actor.ImageUrl" class="img-fluid" style="width: 10rem"/>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <a asp-action="Details" asp-controller="Actors" asp-route-id="@actor.CastId"><h5 class="card-title">Name: @actor.Name</h5></a>
+                                    <p class="card-text">Character: @actor.Character</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        }
+
     </div>
-}
+ </div>
 
 <!-- Modal -->
 <div class="modal fade" id="trailer" tabindex="-1" role="dialog" aria-labelledby="trailerLabel" aria-hidden="true">

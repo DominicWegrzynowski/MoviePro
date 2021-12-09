@@ -1,0 +1,16 @@
+﻿@using MoviePro.Models.Database
+@using MoviePro.Services.Interfaces
+@inject IImageService _imageService;
+@model List<Movie>
+
+
+<div class="container">
+    <div class="poppins-head">
+        <h1>The Library</h1>
+        <hr />
+        <p>@Model.Count movies</p>
+        <hr />
+    </div>
+
+
+</div>
